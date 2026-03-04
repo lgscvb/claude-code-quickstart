@@ -45,9 +45,9 @@
 
 ## 🪄 第三關：施放一鍵安裝魔法
 
-在 VS Code 裡面，打開左邊側邊欄的 Claude Code（那個**紫色圖示**），或者從畫面最上方的文字選單點「Terminal（終端機）」→「New Terminal」，然後輸入 `claude` 按 Enter。
+在 VS Code 左邊側邊欄，找到 Claude Code 的**紫色圖示**，點一下打開它。
 
-當 Claude 醒來後，把下面這整段話**複製起來**，貼在對話框裡，按 Enter：
+打開之後你會看到一個對話框（就像聊天視窗一樣）。把下面這整段話**複製起來**，貼進去，按 Enter：
 
 ```
 這是一個新專案，請先幫我在現在的資料夾建立一個 CLAUDE.md 檔案，這是我們未來的專案大腦。接著，請幫我讀取這個連結：https://raw.githubusercontent.com/lgscvb/claude-code-quickstart/main/setup.md ，並按照裡面的步驟，全自動幫我裝好所有工具！
