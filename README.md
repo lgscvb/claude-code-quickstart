@@ -128,6 +128,7 @@
 | ☁️ **雲端管家** | 直接在對話裡幫你管理 Cloudflare 或是 Google Cloud 的伺服器，不用再傻傻登入網頁後台找設定。 |
 | 🗄️ **資料庫管家** | 直接跟 Claude 說「幫我看一下資料庫裡有哪些使用者」，不用自己開後台操作。 |
 | 🐙 **程式碼管家** | 幫你把程式碼存到 GitHub、處理問題回報，不用一直切網頁。 |
+| 🎬 **影片製作** | 用程式碼做出專業影片！Claude 幫你查 Remotion 的最新文件，讓你用 React 寫影片。 |
 | 📝 **從錯誤中學習** | 每次遇到問題，Claude 修完後會自動把「踩過的坑」記錄下來。下次不會再犯同樣的錯，越用越聰明。 |
 | 🎓 **邊做邊學** | Claude 每次寫程式碼都會用小學生聽得懂的白話文解釋：這段在做什麼、為什麼要這樣寫。讓你不知不覺就學會。 |
 | 🔧 **全方位強化** | 自動幫你檢查程式碼品質、安全漏洞、寫測試，支援多種程式語言。像請了一整個工程團隊。 |
@@ -143,6 +144,7 @@
 | Google Cloud | [google-cloud/gcloud-mcp](https://github.com/nichochar/gcloud-mcp) | 雲端管理 |
 | Cloudflare | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | 網站管理 |
 | GitHub | [github/github-mcp-server](https://github.com/github/github-mcp-server) | 程式碼管理 |
+| Remotion | [remotion-dev/remotion](https://github.com/remotion-dev/remotion) | 用程式做影片 |
 | Pencil | [pencil.dev](https://pencil.dev) | 設計工具（開 App 自動連接） |
 
 **Skills 技能包：**
@@ -239,6 +241,10 @@
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<你的 GitHub PAT>"
       }
+    },
+    "remotion-documentation": {
+      "command": "npx",
+      "args": ["@remotion/mcp@latest"]
     }
   }
 }

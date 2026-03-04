@@ -107,6 +107,10 @@ git --version
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<請詢問使用者的 GitHub Personal Access Token>"
       }
+    },
+    "remotion-documentation": {
+      "command": "npx",
+      "args": ["@remotion/mcp@latest"]
     }
   }
 }
@@ -340,7 +344,7 @@ Write-Host "=== ✅ 檢查完畢 ===" -ForegroundColor Cyan
 > 🎉🎉🎉 **恭喜你！開發環境已經全副武裝！**
 >
 > 你現在擁有了：
-> - 🌐 5 個 MCP 伺服器（瀏覽器操控、資料庫、雲端、版控…）
+> - 🌐 6 個 MCP 伺服器（瀏覽器操控、資料庫、雲端、版控、影片…）
 > - 🛠️ 4 組頂級技能包（全自動工程 + 頂級設計 + 學習系統 + 全方位強化）
 > - 📜 專屬的 CLAUDE.md 大腦守則
 >
