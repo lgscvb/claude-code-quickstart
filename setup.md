@@ -8,9 +8,28 @@
 
 **重要原則**：使用者只需要做兩件事——(1) 按 Allow 同意權限 (2) OAuth 彈出時輸入帳密並按同意。其他全部由你自動完成。
 
+**跨平台原則**：本腳本支援 macOS、Linux 和 Windows。每個步驟執行前，請先判斷使用者的作業系統，自動選擇對應的指令。**不要問使用者用什麼系統，自己偵測。**
+
 ---
 
-## Step 0：帳號確認
+## Step 0：偵測作業系統 + 帳號確認
+
+### 0.1 偵測作業系統
+
+請先執行以下指令判斷使用者的系統：
+
+```bash
+uname -s 2>/dev/null || echo "Windows"
+```
+
+根據結果記住使用者的系統類型，後續步驟會用到：
+- `Darwin` = macOS
+- `Linux` = Linux
+- `Windows` 或指令失敗 = Windows
+
+> **Claude 內部備忘**：如果是 Windows，所有 shell 指令要改用 PowerShell 語法。`~` 要換成 `$env:USERPROFILE`，`cp -r` 要換成 `Copy-Item -Recurse`，`rm -rf` 要換成 `Remove-Item -Recurse -Force`，`cat` 要換成 `Get-Content`，`ls` 要換成 `Get-ChildItem`。
+
+### 0.2 帳號確認
 
 在開始安裝前，先列出以下清單給使用者看，確認他們已經有這些帳號：
 
@@ -39,19 +58,30 @@ npm --version
 ```
 
 ### 情況 A：Node.js 未安裝
-執行以下指令安裝 fnm（Fast Node Manager）和 Node.js LTS：
 
+**macOS / Linux**：
 ```bash
 curl -fsSL https://fnm.vercel.app/install | bash
-source ~/.zshrc
+source ~/.zshrc 2>/dev/null || source ~/.bashrc 2>/dev/null
 fnm install --lts
 fnm default lts-latest
 ```
+
+**Windows（PowerShell）**：
+```powershell
+winget install Schniz.fnm
+fnm install --lts
+fnm default lts-latest
+```
+
+> 如果 Windows 沒有 `winget`，改用：`irm https://fnm.vercel.app/install.ps1 | iex`
 
 安裝完成後，**務必提醒使用者**：
 > ⚠️ **請完全關閉 VS Code 再重新開啟**（不是只關 Terminal！），讓 PATH 環境變數生效。重新開啟後再回來繼續。
 
 ### 情況 B：Node.js 版本 < 18
+
+**macOS / Linux / Windows（通用）**：
 ```bash
 fnm install --lts
 fnm default lts-latest
@@ -65,20 +95,36 @@ fnm default lts-latest
 
 ## Step 2：環境檢查
 
-確認作業系統並檢查其他相依工具：
+確認其他相依工具：
 
+**macOS / Linux**：
 ```bash
-uname -s
 docker --version 2>/dev/null || echo "Docker 未安裝（GitHub MCP 將無法使用，其他不受影響）"
+git --version
+```
+
+**Windows（PowerShell）**：
+```powershell
+docker --version 2>$null; if (-not $?) { Write-Host "Docker 未安裝（GitHub MCP 將無法使用，其他不受影響）" }
+git --version
 ```
 
 如果 Docker 未安裝，告知使用者：「Docker 未安裝，GitHub MCP 將跳過。如果之後需要，可以到 https://docker.com 安裝 Docker Desktop。」
+
+如果 Git 未安裝：
+- **macOS**：`xcode-select --install`
+- **Windows**：`winget install Git.Git`，然後重啟 VS Code
+- **Linux**：`sudo apt install git` 或 `sudo yum install git`
 
 ---
 
 ## Step 3：設定 MCP 伺服器
 
-請尋找或建立 `~/.claude/mcp.json`。
+請尋找或建立 MCP 設定檔。
+
+**設定檔位置**：
+- **macOS / Linux**：`~/.claude/mcp.json`
+- **Windows**：`%USERPROFILE%\.claude\mcp.json`
 
 **重要**：如果檔案已存在，請用 **merge** 的方式加入新的 MCP 設定（保留使用者原有的 MCP），不要覆蓋整個檔案。
 
@@ -159,10 +205,18 @@ npx add-skill lgscvb/claude-code-quickstart -g -a claude-code -y
 
 這是一個超級大禮包，包含 13 個專業助手、56 個技能、安全掃描、自動學習系統等。安裝方式比較特別：
 
+**macOS / Linux**：
 ```bash
 git clone https://github.com/affaan-m/everything-claude-code.git /tmp/everything-claude-code
 cp -r /tmp/everything-claude-code/skills/* ~/.claude/skills/
 rm -rf /tmp/everything-claude-code
+```
+
+**Windows（PowerShell）**：
+```powershell
+git clone https://github.com/affaan-m/everything-claude-code.git $env:TEMP\everything-claude-code
+Copy-Item -Recurse -Force "$env:TEMP\everything-claude-code\skills\*" "$env:USERPROFILE\.claude\skills\"
+Remove-Item -Recurse -Force "$env:TEMP\everything-claude-code"
 ```
 
 這會幫你裝上一大堆進階技能，包括：
@@ -172,8 +226,15 @@ rm -rf /tmp/everything-claude-code
 - **效能優化**：自動幫你省 token、省錢
 
 每個安裝完成後確認成功：
+
+**macOS / Linux**：
 ```bash
 ls ~/.claude/skills/ | grep -E "superpowers|ui-ux|claude-code-quickstart|learn-from-mistakes|explain-like-im-five|everything-claude-code"
+```
+
+**Windows（PowerShell）**：
+```powershell
+Get-ChildItem "$env:USERPROFILE\.claude\skills" | Where-Object { $_.Name -match "superpowers|ui-ux|claude-code-quickstart|learn-from-mistakes|explain-like-im-five|everything-claude-code" }
 ```
 
 ---
@@ -189,10 +250,26 @@ ls ~/.claude/skills/ | grep -E "superpowers|ui-ux|claude-code-quickstart|learn-f
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
 ```
 
-建議使用者建立一個 shell alias：
+建議建立一個 shell alias：
 ```bash
 echo 'alias chrome-debug="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222"' >> ~/.zshrc
 source ~/.zshrc
+```
+
+**Windows（PowerShell）**：
+```powershell
+Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" --ArgumentList "--remote-debugging-port=9222"
+```
+
+建議建立一個 PowerShell function（永久生效）：
+```powershell
+if (-not (Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }
+Add-Content $PROFILE 'function chrome-debug { Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" --ArgumentList "--remote-debugging-port=9222" }'
+```
+
+**Linux**：
+```bash
+google-chrome --remote-debugging-port=9222
 ```
 
 以後只要輸入 `chrome-debug` 就能用 debug 模式開 Chrome。
@@ -210,8 +287,9 @@ source ~/.zshrc
 
 ## Step 6：建立 CLAUDE.md 模板
 
-在使用者的家目錄建立全域 CLAUDE.md：
+在使用者的設定目錄建立全域 CLAUDE.md。
 
+**macOS / Linux**：
 ```bash
 cat > ~/.claude/CLAUDE.md << 'HEREDOC'
 # 全域開發守則
@@ -249,6 +327,10 @@ cat > ~/.claude/CLAUDE.md << 'HEREDOC'
 HEREDOC
 ```
 
+**Windows（PowerShell）**：
+
+請使用 Claude Code 的 Write tool 直接建立 `%USERPROFILE%\.claude\CLAUDE.md`，內容與上方 macOS/Linux 版本相同。
+
 告訴使用者：
 > 📜 已在 `~/.claude/CLAUDE.md` 建立全域開發守則。這就像 Claude 的「永久記憶」，每次啟動都會讀取。你可以隨時修改裡面的規則！
 >
@@ -274,6 +356,7 @@ HEREDOC
 
 執行環境總檢查：
 
+**macOS / Linux**：
 ```bash
 echo "=== 🔍 環境總檢查 ==="
 echo ""
@@ -296,13 +379,38 @@ echo ""
 echo "=== ✅ 檢查完畢 ==="
 ```
 
+**Windows（PowerShell）**：
+```powershell
+Write-Host "=== 🔍 環境總檢查 ===" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "1. Node.js:" -NoNewline; node --version
+Write-Host "2. npm:" -NoNewline; npm --version
+Write-Host ""
+Write-Host "4. MCP 設定檔："
+$mcpPath = "$env:USERPROFILE\.claude\mcp.json"
+if (Test-Path $mcpPath) {
+    try { Get-Content $mcpPath | ConvertFrom-Json | Out-Null; Write-Host "   ✅ JSON 格式正確" } catch { Write-Host "   ❌ JSON 格式有誤，請檢查" }
+} else { Write-Host "   ❌ 找不到 mcp.json" }
+Write-Host ""
+Write-Host "5. 已安裝的 MCP："
+if (Test-Path $mcpPath) { (Get-Content $mcpPath | ConvertFrom-Json).mcpServers.PSObject.Properties | ForEach-Object { Write-Host "   ✅ $($_.Name)" } }
+Write-Host ""
+Write-Host "6. 已安裝的 Skills："
+Get-ChildItem "$env:USERPROFILE\.claude\skills" -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "   ✅ $($_.Name)" }
+Write-Host ""
+Write-Host "7. CLAUDE.md："
+if (Test-Path "$env:USERPROFILE\.claude\CLAUDE.md") { Write-Host "   ✅ 全域 CLAUDE.md 已建立" } else { Write-Host "   ❌ 未找到" }
+Write-Host ""
+Write-Host "=== ✅ 檢查完畢 ===" -ForegroundColor Cyan
+```
+
 最後，用輕鬆幽默的語氣恭喜使用者：
 
 > 🎉🎉🎉 **恭喜你！開發環境已經全副武裝！**
 >
 > 你現在擁有了：
 > - 🌐 8 個 MCP 伺服器（瀏覽器操控、資料庫、雲端、版控…）
-> - 🛠️ 2 組頂級技能包（全自動工程 + 頂級設計）
+> - 🛠️ 4 組頂級技能包（全自動工程 + 頂級設計 + 學習系統 + 全方位強化）
 > - 📜 專屬的 CLAUDE.md 大腦守則
 >
 > **快速上手小秘訣：**

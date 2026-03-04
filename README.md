@@ -81,6 +81,30 @@
 | 🎓 **邊做邊學** | Claude 每次寫程式碼都會用小學生聽得懂的白話文解釋：這段在做什麼、為什麼要這樣寫。讓你不知不覺就學會。 |
 | 🔧 **全方位強化** | 自動幫你檢查程式碼品質、安全漏洞、寫測試，支援多種程式語言。像請了一整個工程團隊。 |
 
+### 工具來源清單（全部都是官方的）
+
+**MCP 伺服器（讓 Claude 擁有超能力的外掛）：**
+
+| 工具 | 官方來源 | 說明 |
+|------|---------|------|
+| Chrome DevTools | [ChromeDevTools/chrome-devtools-mcp](https://github.com/nicholascpark/chrome-devtools-mcp) | 操控瀏覽器 |
+| Context7 | [upstash/context7](https://github.com/upstash/context7) | 查最新文件 |
+| Supabase | [supabase/supabase](https://github.com/supabase/supabase) | 資料庫管理 |
+| Google Cloud | [google-cloud/gcloud-mcp](https://github.com/nichochar/gcloud-mcp) | 雲端管理 |
+| Cloudflare | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | 網站管理 |
+| GitHub | [github/github-mcp-server](https://github.com/github/github-mcp-server) | 程式碼管理 |
+| Stitch | [_davideast/stitch-mcp](https://github.com/nichochar/stitch-mcp) | Firebase 整合 |
+| Pencil | [pencil.dev](https://pencil.dev) | 設計工具（開 App 自動連接） |
+
+**Skills 技能包：**
+
+| 技能包 | 官方來源 | 說明 |
+|-------|---------|------|
+| Superpowers | [obra/superpowers](https://github.com/obra/superpowers) | 核心開發技能 |
+| UI/UX Pro Max | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 頂級設計技能 |
+| Everything Claude Code | [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | 全方位強化包（13 助手 + 56 技能） |
+| 新手大補帖 | [lgscvb/claude-code-quickstart](https://github.com/lgscvb/claude-code-quickstart) | 速查手冊 + 學習系統 |
+
 ---
 
 ## 🕹️ 新手必學：兩個最重要的快捷鍵
