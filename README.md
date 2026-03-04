@@ -93,7 +93,7 @@
 | Google Cloud | [google-cloud/gcloud-mcp](https://github.com/nichochar/gcloud-mcp) | 雲端管理 |
 | Cloudflare | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | 網站管理 |
 | GitHub | [github/github-mcp-server](https://github.com/github/github-mcp-server) | 程式碼管理 |
-| Stitch | [_davideast/stitch-mcp](https://github.com/nichochar/stitch-mcp) | Firebase 整合 |
+| Stitch | [davideast/stitch-mcp](https://github.com/davideast/stitch-mcp) | Google Stitch 設計稿轉程式碼 |
 | Pencil | [pencil.dev](https://pencil.dev) | 設計工具（開 App 自動連接） |
 
 **Skills 技能包：**
