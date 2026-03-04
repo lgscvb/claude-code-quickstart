@@ -145,9 +145,19 @@ npx add-skill obra/superpowers -g -a claude-code -y
 npx add-skill nextlevelbuilder/ui-ux-pro-max-skill -g -a claude-code -y
 ```
 
+### 4.3 新手大補帖（速查手冊 + 從錯誤中學習 + 邊做邊學系統）
+```bash
+npx add-skill lgscvb/claude-code-quickstart -g -a claude-code -y
+```
+
+這會安裝三個技能：
+- **claude-code-quickstart**：速查手冊，忘記什麼就來翻
+- **learn-from-mistakes**：每次遇到 bug 修完後，Claude 會自動把教訓記錄到 CLAUDE.md，下次不會再犯同樣的錯
+- **explain-like-im-five**：Claude 每次寫程式碼都會用小學生聽得懂的方式解釋，讓你邊做邊學
+
 每個安裝完成後確認成功：
 ```bash
-ls ~/.claude/skills/ | grep -E "superpowers|ui-ux"
+ls ~/.claude/skills/ | grep -E "superpowers|ui-ux|claude-code-quickstart|learn-from-mistakes|explain-like-im-five"
 ```
 
 ---
@@ -190,8 +200,14 @@ source ~/.zshrc
 cat > ~/.claude/CLAUDE.md << 'HEREDOC'
 # 全域開發守則
 
-## 語言偏好
-- 回覆請使用繁體中文
+## 語言與溝通
+- 回覆請使用繁體中文（包含思考過程也用繁體中文）
+- 每次寫程式碼時，用小學生都能聽懂的白話文解釋：這段程式碼在做什麼、為什麼要這樣寫、目的是什麼
+- 解釋時不要用專業術語，如果一定要用，請加上白話文翻譯
+
+## 從錯誤中學習
+- 每次遇到錯誤或 bug，修完之後要在這份文件的「踩過的坑」區塊記錄：錯誤原因、怎麼修的、以後怎麼避免
+- 不要重複犯同樣的錯誤，修之前先看「踩過的坑」
 
 ## 程式碼風格
 - 使用 2 空格縮排
@@ -202,9 +218,13 @@ cat > ~/.claude/CLAUDE.md << 'HEREDOC'
 - 不要在程式碼中留下 console.log（除非是刻意的 debug）
 - 不要在 commit 中包含 .env 檔案
 
+## 踩過的坑（Claude 自動記錄區）
+<!-- Claude 會在這裡自動記錄每次犯錯的教訓 -->
+
 ## 提醒
 - 每次啟動 Claude Code 都會讀取這份文件
 - 可以隨時修改這裡的規則，Claude 會遵守
+- 這份文件也是 Claude 的「成長日記」，錯誤記錄會越來越豐富
 HEREDOC
 ```
 
