@@ -79,6 +79,7 @@
 | 🐙 **程式碼管家** | 幫你把程式碼存到 GitHub、處理問題回報，不用一直切網頁。 |
 | 📝 **從錯誤中學習** | 每次遇到問題，Claude 修完後會自動把「踩過的坑」記錄下來。下次不會再犯同樣的錯，越用越聰明。 |
 | 🎓 **邊做邊學** | Claude 每次寫程式碼都會用小學生聽得懂的白話文解釋：這段在做什麼、為什麼要這樣寫。讓你不知不覺就學會。 |
+| 🔧 **全方位強化** | 自動幫你檢查程式碼品質、安全漏洞、寫測試，支援多種程式語言。像請了一整個工程團隊。 |
 
 ---
 
@@ -212,6 +213,9 @@
 npx add-skill obra/superpowers -g -a claude-code -y
 npx add-skill nextlevelbuilder/ui-ux-pro-max-skill -g -a claude-code -y
 npx add-skill lgscvb/claude-code-quickstart -g -a claude-code -y
+git clone https://github.com/affaan-m/everything-claude-code.git /tmp/everything-claude-code
+cp -r /tmp/everything-claude-code/skills/* ~/.claude/skills/
+rm -rf /tmp/everything-claude-code
 ```
 
 ### 用 debug 模式開 Chrome（macOS）

@@ -155,9 +155,25 @@ npx add-skill lgscvb/claude-code-quickstart -g -a claude-code -y
 - **learn-from-mistakes**：每次遇到 bug 修完後，Claude 會自動把教訓記錄到 CLAUDE.md，下次不會再犯同樣的錯
 - **explain-like-im-five**：Claude 每次寫程式碼都會用小學生聽得懂的方式解釋，讓你邊做邊學
 
+### 4.4 Everything Claude Code（全方位強化包）
+
+這是一個超級大禮包，包含 13 個專業助手、56 個技能、安全掃描、自動學習系統等。安裝方式比較特別：
+
+```bash
+git clone https://github.com/affaan-m/everything-claude-code.git /tmp/everything-claude-code
+cp -r /tmp/everything-claude-code/skills/* ~/.claude/skills/
+rm -rf /tmp/everything-claude-code
+```
+
+這會幫你裝上一大堆進階技能，包括：
+- **程式碼審查**：自動幫你檢查程式碼品質和安全性
+- **測試驅動開發**：先寫測試再寫程式，減少 bug
+- **多種程式語言支援**：TypeScript、Python、Go、Java 等
+- **效能優化**：自動幫你省 token、省錢
+
 每個安裝完成後確認成功：
 ```bash
-ls ~/.claude/skills/ | grep -E "superpowers|ui-ux|claude-code-quickstart|learn-from-mistakes|explain-like-im-five"
+ls ~/.claude/skills/ | grep -E "superpowers|ui-ux|claude-code-quickstart|learn-from-mistakes|explain-like-im-five|everything-claude-code"
 ```
 
 ---
