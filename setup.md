@@ -46,22 +46,7 @@ uname -s 2>/dev/null || echo "Windows"
 
 ---
 
-## Step 1：Node.js 版本檢查
-
-> 因為你（使用者）已經在 Claude Code 裡跟我對話了，代表你的電腦一定已經有 Node.js（Claude Code 本身就是靠 Node.js 跑的）。這裡只需要確認版本夠新就好。
-
-請執行以下檢查：
-
-```bash
-node --version
-```
-
-- **如果版本 >= 18**：太棒了，直接前往 Step 2。
-- **如果版本 < 18**：請暫停安裝，並告訴使用者：「你的 Node.js 版本有點舊喔！為了讓所有外掛順利運作，請去 [Node.js 官網](https://nodejs.org/) 下載最新 LTS 版安裝。安裝完記得把 VS Code **完全關掉再重開**（不是只關 Terminal！），然後再回來找我繼續。」
-
----
-
-## Step 2：環境檢查
+## Step 1：環境檢查
 
 確認其他相依工具：
 
@@ -86,7 +71,7 @@ git --version
 
 ---
 
-## Step 3：設定 MCP 伺服器
+## Step 2：設定 MCP 伺服器
 
 請尋找或建立 MCP 設定檔。
 
@@ -137,21 +122,21 @@ git --version
 
 ---
 
-## Step 4：安裝 Skills 技能包
+## Step 3：安裝 Skills 技能包
 
 依序執行以下安裝指令：
 
-### 4.1 Superpowers（核心開發技能）
+### 3.1 Superpowers（核心開發技能）
 ```bash
 npx add-skill obra/superpowers -g -a claude-code -y
 ```
 
-### 4.2 UI/UX Pro Max（設計技能）
+### 3.2 UI/UX Pro Max（設計技能）
 ```bash
 npx add-skill nextlevelbuilder/ui-ux-pro-max-skill -g -a claude-code -y
 ```
 
-### 4.3 新手大補帖（速查手冊 + 從錯誤中學習 + 邊做邊學系統）
+### 3.3 新手大補帖（速查手冊 + 從錯誤中學習 + 邊做邊學系統）
 ```bash
 npx add-skill lgscvb/claude-code-quickstart -g -a claude-code -y
 ```
@@ -161,7 +146,7 @@ npx add-skill lgscvb/claude-code-quickstart -g -a claude-code -y
 - **learn-from-mistakes**：每次遇到 bug 修完後，Claude 會自動把教訓記錄到 CLAUDE.md，下次不會再犯同樣的錯
 - **explain-like-im-five**：Claude 每次寫程式碼都會用小學生聽得懂的方式解釋，讓你邊做邊學
 
-### 4.4 Everything Claude Code（全方位強化包）
+### 3.4 Everything Claude Code（全方位強化包）
 
 這是一個超級大禮包，包含多個專業助手與技能。
 **⚠️ 注意：為了確保跨平台相容（Windows / Mac / Linux），請不要使用寫死的 Shell 指令。**
@@ -192,9 +177,9 @@ Get-ChildItem "$env:USERPROFILE\.claude\skills" | Where-Object { $_.Name -match 
 
 ---
 
-## Step 5：Chrome DevTools 設定與 OAuth 授權
+## Step 4：Chrome DevTools 設定與 OAuth 授權
 
-### 5.1 Chrome Debug 模式
+### 4.1 Chrome Debug 模式
 
 告訴使用者需要用特殊模式啟動 Chrome 才能讓 Claude 控制瀏覽器：
 
@@ -227,7 +212,7 @@ google-chrome --remote-debugging-port=9222
 
 以後只要輸入 `chrome-debug` 就能用 debug 模式開 Chrome。
 
-### 5.2 OAuth 授權說明
+### 4.2 OAuth 授權說明
 
 告訴使用者：
 > 🎉 **MCP 設定完成！**
@@ -238,7 +223,7 @@ google-chrome --remote-debugging-port=9222
 
 ---
 
-## Step 6：建立 CLAUDE.md 模板
+## Step 5：建立 CLAUDE.md 模板
 
 在使用者的設定目錄建立全域 CLAUDE.md。
 
@@ -305,7 +290,7 @@ HEREDOC
 
 ---
 
-## Step 7：最終驗證與恭喜
+## Step 6：最終驗證與恭喜
 
 執行環境總檢查：
 
@@ -313,20 +298,16 @@ HEREDOC
 ```bash
 echo "=== 🔍 環境總檢查 ==="
 echo ""
-echo "1. Node.js:" && node --version
-echo "2. npm:" && npm --version
-echo "3. Claude Code:" && claude --version 2>/dev/null || echo "   (在 VS Code 中使用，CLI 版本可能未安裝)"
-echo ""
-echo "4. MCP 設定檔："
+echo "1. MCP 設定檔："
 cat ~/.claude/mcp.json 2>/dev/null | python3 -m json.tool > /dev/null 2>&1 && echo "   ✅ JSON 格式正確" || echo "   ❌ JSON 格式有誤，請檢查"
 echo ""
-echo "5. 已安裝的 MCP："
+echo "2. 已安裝的 MCP："
 cat ~/.claude/mcp.json 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f'   ✅ {k}') for k in d.get('mcpServers',{})]" 2>/dev/null
 echo ""
-echo "6. 已安裝的 Skills："
+echo "3. 已安裝的 Skills："
 ls ~/.claude/skills/ 2>/dev/null | while read skill; do echo "   ✅ $skill"; done
 echo ""
-echo "7. CLAUDE.md："
+echo "4. CLAUDE.md："
 test -f ~/.claude/CLAUDE.md && echo "   ✅ 全域 CLAUDE.md 已建立" || echo "   ❌ 未找到"
 echo ""
 echo "=== ✅ 檢查完畢 ==="
@@ -336,22 +317,19 @@ echo "=== ✅ 檢查完畢 ==="
 ```powershell
 Write-Host "=== 🔍 環境總檢查 ===" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "1. Node.js:" -NoNewline; node --version
-Write-Host "2. npm:" -NoNewline; npm --version
-Write-Host ""
-Write-Host "4. MCP 設定檔："
+Write-Host "1. MCP 設定檔："
 $mcpPath = "$env:USERPROFILE\.claude\mcp.json"
 if (Test-Path $mcpPath) {
     try { Get-Content $mcpPath | ConvertFrom-Json | Out-Null; Write-Host "   ✅ JSON 格式正確" } catch { Write-Host "   ❌ JSON 格式有誤，請檢查" }
 } else { Write-Host "   ❌ 找不到 mcp.json" }
 Write-Host ""
-Write-Host "5. 已安裝的 MCP："
+Write-Host "2. 已安裝的 MCP："
 if (Test-Path $mcpPath) { (Get-Content $mcpPath | ConvertFrom-Json).mcpServers.PSObject.Properties | ForEach-Object { Write-Host "   ✅ $($_.Name)" } }
 Write-Host ""
-Write-Host "6. 已安裝的 Skills："
+Write-Host "3. 已安裝的 Skills："
 Get-ChildItem "$env:USERPROFILE\.claude\skills" -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "   ✅ $($_.Name)" }
 Write-Host ""
-Write-Host "7. CLAUDE.md："
+Write-Host "4. CLAUDE.md："
 if (Test-Path "$env:USERPROFILE\.claude\CLAUDE.md") { Write-Host "   ✅ 全域 CLAUDE.md 已建立" } else { Write-Host "   ❌ 未找到" }
 Write-Host ""
 Write-Host "=== ✅ 檢查完畢 ===" -ForegroundColor Cyan
