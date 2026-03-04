@@ -6,6 +6,24 @@
 
 ---
 
+## 🎯 這包是寫給誰的？
+
+如果你是以下三種人，這份指南就是為你量身打造的：
+
+1. 😩 **已經入坑，但被親朋好友問到快發瘋的人**
+   * **症狀**：已經在享受 Claude Code 的強大，但身邊朋友一直吵著要你教，每個人都問一樣的問題：「要裝什麼？」「那個怎麼設定？」「為什麼我的不能用？」
+   * **解方**：直接把這個 Repo 的連結丟給他，說：「照著做，不會的問 Claude。」從此解放你的私人時間。
+
+2. 👀 **看社群上大家狂發文，覺得很神想試試看的人**
+   * **症狀**：看 Threads 或臉書上大家都在秀用 AI 寫程式、做網站，心癢癢但不知道從何開始。
+   * **解方**：這包幫你跳過所有工程師的繁文縟節，直接把環境一次架好。你只要負責「有想法」就好，剩下的交給 Claude。
+
+3. 🐣 **完全不懂程式，但腦袋裡有很多點子的純麻瓜**
+   * **症狀**：想做網站、想寫工具，但沒有技術背景。看到「終端機」「npm」就頭痛。
+   * **解方**：只要你會用滑鼠和鍵盤，這份指南就能帶你走完全程。所有專業術語都有白話翻譯，所有步驟都有圖文說明。
+
+---
+
 ## 🏰 第一關：先辦好你的通行證
 
 等等安裝過程中，Claude 會需要幫你登入一些服務。好消息是，**你只要有 Google 帳號，幾乎全部都可以用「使用 Google 登入」一鍵搞定**。
@@ -88,12 +106,10 @@
 | 工具 | 官方來源 | 說明 |
 |------|---------|------|
 | Chrome DevTools | [ChromeDevTools/chrome-devtools-mcp](https://github.com/nicholascpark/chrome-devtools-mcp) | 操控瀏覽器 |
-| Context7 | [upstash/context7](https://github.com/upstash/context7) | 查最新文件 |
 | Supabase | [supabase/supabase](https://github.com/supabase/supabase) | 資料庫管理 |
 | Google Cloud | [google-cloud/gcloud-mcp](https://github.com/nichochar/gcloud-mcp) | 雲端管理 |
 | Cloudflare | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | 網站管理 |
 | GitHub | [github/github-mcp-server](https://github.com/github/github-mcp-server) | 程式碼管理 |
-| Stitch | [davideast/stitch-mcp](https://github.com/davideast/stitch-mcp) | Google Stitch 設計稿轉程式碼 |
 | Pencil | [pencil.dev](https://pencil.dev) | 設計工具（開 App 自動連接） |
 
 **Skills 技能包：**
@@ -201,10 +217,6 @@
       "command": "npx",
       "args": ["chrome-devtools-mcp@latest"]
     },
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
-    },
     "supabase": {
       "url": "https://mcp.supabase.com/mcp"
     },
@@ -222,10 +234,6 @@
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<你的 GitHub PAT>"
       }
-    },
-    "stitch": {
-      "command": "npx",
-      "args": ["@_davideast/stitch-mcp", "proxy"]
     }
   }
 }

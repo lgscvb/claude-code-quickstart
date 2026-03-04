@@ -46,50 +46,18 @@ uname -s 2>/dev/null || echo "Windows"
 
 ---
 
-## Step 1：Node.js 環境處理（最優先！）
+## Step 1：Node.js 版本檢查
 
-> 大多數的 MCP 底層都高度依賴 Node.js 環境。請確保電腦已經安裝 Node.js，並且安裝完後有重新啟動 VS Code 讓環境變數生效。
+> 因為你（使用者）已經在 Claude Code 裡跟我對話了，代表你的電腦一定已經有 Node.js（Claude Code 本身就是靠 Node.js 跑的）。這裡只需要確認版本夠新就好。
 
 請執行以下檢查：
 
 ```bash
 node --version
-npm --version
 ```
 
-### 情況 A：Node.js 未安裝
-
-**macOS / Linux**：
-```bash
-curl -fsSL https://fnm.vercel.app/install | bash
-source ~/.zshrc 2>/dev/null || source ~/.bashrc 2>/dev/null
-fnm install --lts
-fnm default lts-latest
-```
-
-**Windows（PowerShell）**：
-```powershell
-winget install Schniz.fnm
-fnm install --lts
-fnm default lts-latest
-```
-
-> 如果 Windows 沒有 `winget`，改用：`irm https://fnm.vercel.app/install.ps1 | iex`
-
-安裝完成後，**務必提醒使用者**：
-> ⚠️ **請完全關閉 VS Code 再重新開啟**（不是只關 Terminal！），讓 PATH 環境變數生效。重新開啟後再回來繼續。
-
-### 情況 B：Node.js 版本 < 18
-
-**macOS / Linux / Windows（通用）**：
-```bash
-fnm install --lts
-fnm default lts-latest
-```
-同樣提醒使用者重啟 VS Code。
-
-### 情況 C：Node.js >= 18
-跳過此步驟，繼續下一步。
+- **如果版本 >= 18**：太棒了，直接前往 Step 2。
+- **如果版本 < 18**：請暫停安裝，並告訴使用者：「你的 Node.js 版本有點舊喔！為了讓所有外掛順利運作，請去 [Node.js 官網](https://nodejs.org/) 下載最新 LTS 版安裝。安裝完記得把 VS Code **完全關掉再重開**（不是只關 Terminal！），然後再回來找我繼續。」
 
 ---
 
@@ -137,10 +105,6 @@ git --version
       "command": "npx",
       "args": ["chrome-devtools-mcp@latest"]
     },
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
-    },
     "supabase": {
       "url": "https://mcp.supabase.com/mcp"
     },
@@ -158,10 +122,6 @@ git --version
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<請詢問使用者的 GitHub Personal Access Token>"
       }
-    },
-    "stitch": {
-      "command": "npx",
-      "args": ["@_davideast/stitch-mcp", "proxy"]
     }
   }
 }
@@ -203,23 +163,16 @@ npx add-skill lgscvb/claude-code-quickstart -g -a claude-code -y
 
 ### 4.4 Everything Claude Code（全方位強化包）
 
-這是一個超級大禮包，包含 13 個專業助手、56 個技能、安全掃描、自動學習系統等。安裝方式比較特別：
+這是一個超級大禮包，包含多個專業助手與技能。
+**⚠️ 注意：為了確保跨平台相容（Windows / Mac / Linux），請不要使用寫死的 Shell 指令。**
 
-**macOS / Linux**：
-```bash
-git clone https://github.com/affaan-m/everything-claude-code.git /tmp/everything-claude-code
-cp -r /tmp/everything-claude-code/skills/* ~/.claude/skills/
-rm -rf /tmp/everything-claude-code
-```
+請你（Claude）判斷使用者目前的作業系統，並使用適合該系統的方法，完成以下操作：
 
-**Windows（PowerShell）**：
-```powershell
-git clone https://github.com/affaan-m/everything-claude-code.git $env:TEMP\everything-claude-code
-Copy-Item -Recurse -Force "$env:TEMP\everything-claude-code\skills\*" "$env:USERPROFILE\.claude\skills\"
-Remove-Item -Recurse -Force "$env:TEMP\everything-claude-code"
-```
+1. 將 `https://github.com/affaan-m/everything-claude-code.git` clone 到系統的暫存目錄
+2. 把 clone 下來的 `/skills` 資料夾內容，完整複製到使用者的 `~/.claude/skills/` 目錄下（Windows 為 `%USERPROFILE%\.claude\skills\`）
+3. 清除暫存目錄中的 clone
 
-這會幫你裝上一大堆進階技能，包括：
+這會幫使用者裝上一大堆進階技能，包括：
 - **程式碼審查**：自動幫你檢查程式碼品質和安全性
 - **測試驅動開發**：先寫測試再寫程式，減少 bug
 - **多種程式語言支援**：TypeScript、Python、Go、Java 等
@@ -409,7 +362,7 @@ Write-Host "=== ✅ 檢查完畢 ===" -ForegroundColor Cyan
 > 🎉🎉🎉 **恭喜你！開發環境已經全副武裝！**
 >
 > 你現在擁有了：
-> - 🌐 8 個 MCP 伺服器（瀏覽器操控、資料庫、雲端、版控…）
+> - 🌐 5 個 MCP 伺服器（瀏覽器操控、資料庫、雲端、版控…）
 > - 🛠️ 4 組頂級技能包（全自動工程 + 頂級設計 + 學習系統 + 全方位強化）
 > - 📜 專屬的 CLAUDE.md 大腦守則
 >
