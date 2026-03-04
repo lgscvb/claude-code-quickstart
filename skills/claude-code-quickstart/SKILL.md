@@ -1,223 +1,135 @@
 ---
 name: claude-code-quickstart
-description: "Claude Code 新手大補帖。查看 Tips、模式切換、MCP 速查、CLAUDE.md 說明、常見問題。觸發詞：新手、tips、quickstart、懶人包、setup、環境設定、MCP 怎麼用。"
+description: "Claude Code 新手大補帖。查看使用秘訣、外掛清單、CLAUDE.md 說明、常見問題。觸發詞：新手、tips、quickstart、懶人包、setup、怎麼用、教學。"
 metadata:
   author: kevin
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Claude Code 新手大補帖
 
-安裝完成後的快速參考指南。包含 Tips、MCP 速查表、CLAUDE.md 說明、權限設定、常見問題。
+裝完之後的速查手冊。忘記什麼就來翻這裡。
 
 ---
 
-## 📂 階段零：麻瓜防呆起手式（每次新專案必做！）
+## 📂 每次開新專案前一定要做的事！
 
-**不管你要做什麼，開始之前一定要先執行這三步：**
+**不管你要做什麼，動手之前先做這三步：**
 
-### 防呆三步驟
+1. **在桌面建一個新資料夾** → 用英文取名（例如 `my-app`）
+2. **把資料夾拖進 VS Code 視窗** → 它就會自動打開
+3. **跟 Claude 說**：「請在這裡幫我建一份 CLAUDE.md，寫下我們剛聊的專案目標」
 
-1. **桌面新增資料夾** → 用英文命名（例如 `my-first-app`）
-2. **複製路徑** → 右鍵資料夾 → 「複製路徑」
-3. **貼給 Claude** → `我要開始新專案了，請幫我把工作目錄切換到這裡：[貼上路徑]`
+這樣你的檔案就不會亂飛，而且 Claude 每次開啟這個資料夾都會記得你的專案在做什麼。
 
-> 更簡單：直接把資料夾拖進 VS Code 視窗！
-
-### 建立 CLAUDE.md
-
-進入資料夾後，貼這句給 Claude：
-
-```
-請在這個資料夾幫我建立一份 CLAUDE.md，並根據我們剛剛聊的想法，總結專案目標與開發注意事項。
-```
-
-### 鐵律
-
-> ⚠️ 就算只是聊天聊 prototype 想法，只要準備切換到 Plan Mode 開始認真做，就**一定要先建立專案根目錄 + CLAUDE.md**。不會寫沒關係，叫 Claude 幫你寫！
+> ⚠️ 就算只是在隨便聊想法，只要聊到「認真想做」的地步，就一定要先建資料夾 + CLAUDE.md。不會寫？叫 Claude 幫你寫！
 
 ---
 
-## 💡 Claude Code Tips
+## 💡 一定要知道的小秘訣
 
-### 啟動指令
+### 三種打開 Claude 的方式
 
-| 指令 | 功能 |
-|------|------|
-| `claude` | 標準啟動，開始新對話 |
-| `claude -c` | 快速回到最近一次的對話 |
-| `claude -r` | 顯示對話歷史列表（含摘要），選擇要繼續的對話 |
+| 你打的字 | 會發生什麼 |
+|---------|-----------|
+| `claude` | 開始全新的對話 |
+| `claude -c` | 回到上次聊到一半的地方（超實用！） |
+| `claude -r` | 列出所有歷史對話，讓你挑一個繼續 |
 
-### 對話模式切換（`Shift + TAB`）
+### 切換工作模式（`Shift + TAB`）
 
-在對話中按 `Shift+TAB` 切換模式：
+在對話中按 `Shift+TAB` 可以切換：
 
-| 模式 | 狀態顯示 | 功能 | 適用場景 |
-|------|---------|------|---------|
-| 🤖 自動接受編輯 | ⏵⏵ auto-accept edits on | 自動接受已允許的編輯指令 | 重複性編輯、信任度高的操作 |
-| 📋 規劃模式 | ⏸ plan mode on | 只規劃不編輯，專注討論架構 | 架構設計、流程規劃、需求分析 |
+| 模式 | 什麼時候用 |
+|------|-----------|
+| 🤖 **自動接受** | Claude 做的修改都自動通過，不會一直問你「可以嗎」 |
+| 📋 **規劃模式** | Claude 只跟你討論，**不會動任何檔案**。適合還在想怎麼做的時候 |
 
-### ⚠️ 危險權限模式
+> 💡 建議流程：先開「規劃模式」跟 Claude 討論 → 覺得 OK → 切回普通模式讓它動手。
+
+### ⚠️ 危險模式（通常不要用）
 
 ```bash
 claude --dangerously-skip-permissions
 ```
 
-允許所有權限，跳過安全檢查。**極不建議常態使用！** 僅在完全了解風險時才開啟。
+Claude 不再問你「可以嗎」就直接做所有事。除非你非常清楚後果，否則不要用。
 
 ---
 
-## 📜 CLAUDE.md 的重要性
+## 📜 什麼是 CLAUDE.md？
 
-`CLAUDE.md` 就像專案的「大腦守則」。每次啟動 Claude Code 都會優先讀取。
+一個純文字檔案，你在裡面寫規則，Claude 每次啟動都會先讀它。就像請了新助理，第一天先給他看公司手冊。
 
-### 三層結構
+### 放哪裡？
 
-| 位置 | 作用 | 共享範圍 |
-|------|------|---------|
-| `~/.claude/CLAUDE.md` | 全域個人偏好（語言、風格） | 僅自己 |
-| `./CLAUDE.md` | 專案規範（技術棧、命名慣例） | Git tracked，團隊共享 |
-| `./src/CLAUDE.md` | 子模組指示 | 模組級 |
+| 放的位置 | 效果 |
+|---------|------|
+| 個人設定資料夾裡 | 不管開哪個專案都有效（例如「回覆用繁體中文」） |
+| 專案資料夾裡 | 只在這個專案有效（例如「這個專案用 React」） |
 
-### 可以寫什麼
+### 裡面可以寫什麼？
 
-- 專案的技術棧與版本
-- 命名慣例（camelCase / snake_case）
-- 不允許使用的寫法
-- 整體商業邏輯簡介
-- 語言偏好（繁體中文 / English）
+什麼都可以！例如：
+- 「回覆請用繁體中文」
+- 「這是一個用 React 做的購物網站」
+- 「程式碼裡不要留 console.log」
+- 「改完程式要跑測試」
 
-### 範例模板
-
-```markdown
-# 專案開發守則
-
-## 技術棧
-- React 19 + TypeScript + Vite
-- Tailwind CSS v4
-- Supabase (PostgreSQL)
-
-## 命名慣例
-- 元件：PascalCase（UserProfile.tsx）
-- 函式：camelCase（getUserData）
-- CSS：kebab-case（user-profile）
-
-## 禁止事項
-- 不使用 any 型別
-- 不留 console.log
-- 不 commit .env 檔案
-```
+**不會寫就跟 Claude 說：「幫我建一份 CLAUDE.md」。**
 
 ---
 
-## 📦 MCP 速查表
+## 📦 你現在有哪些超能力？
 
-| MCP | 用途 | 一句話說明 |
-|-----|------|-----------|
-| **Chrome DevTools** | 瀏覽器操控 | 讓 Claude 控制 Chrome，幫你完成 OAuth 授權、測試網頁 |
-| **Context7** | 文件查詢 | 即時查任何程式庫的最新文件（React、Next.js、Vue…） |
-| **Supabase** | 資料庫 | 在對話中直接管理 PostgreSQL，不用開 Supabase 後台 |
-| **GCP** | 雲端 | 用自然語言管理 Google Cloud 資源 |
-| **Cloudflare** | 網管/部署 | 管理 DNS、Tunnel、R2、Workers，不用開 Cloudflare 後台 |
-| **GitHub** | 版控 | 管理 PR、Issue、Repo（需 Docker） |
-| **Stitch** | 設計→程式碼 | Google AI 設計工具，把設計稿轉成前端程式碼 |
-| **Pencil** | 設計工具 | 操作 .pen 檔（開 Pencil App 自動連接，無需設定） |
+| 超能力 | 白話說明 |
+|--------|---------|
+| 🌐 **操控瀏覽器** | Claude 幫你開網頁、點按鈕、填表單。登入服務時它會自動開瀏覽器，你只管輸入帳密。 |
+| 📚 **查最新文件** | 問 Claude 程式怎麼寫，它會去撈最新的官方文件，不會給過時的答案。 |
+| 🗄️ **管理資料庫** | 直接跟 Claude 說「看一下資料庫裡有哪些使用者」，不用自己開後台。 |
+| ☁️ **管理雲端** | Google Cloud 的複雜設定，用中文跟 Claude 說就好。 |
+| 🌍 **管理網站** | 網域、DNS、網站部署，跟 Claude 說就好，不用登入 Cloudflare。 |
+| 🐙 **管理程式碼** | 幫你在 GitHub 上建 PR、處理 Issue，不用一直切網頁。 |
+| 🎨 **設計轉程式碼** | 把設計稿變成程式碼，或幫你選配色、字型、UI 風格。 |
+| 🛠️ **自動化工程** | 幫你寫測試、除錯、做程式碼審查，像有資深工程師在旁邊。 |
 
-### Chrome DevTools OAuth 流程
+### 瀏覽器登入怎麼運作？
 
-當 Claude 需要幫你做 OAuth 授權時：
-1. Claude 用 Chrome DevTools 開啟授權頁面
-2. **你**：輸入帳號密碼 + 點「我同意」
-3. Claude：自動抓取 Token 並完成設定
+1. Claude 自動開一個 Chrome 視窗到登入頁面
+2. **你**：輸入帳號密碼 + 按「我同意」
+3. Claude：自動完成剩下的步驟
 
-> 前提：Chrome 需用 debug 模式啟動。終端機輸入 `chrome-debug`（如果有設 alias）或：
-> ```bash
-> /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
-> ```
+> 注意：Chrome 需要用特殊方式開啟。如果不能用，跟 Claude 說：「幫我用 debug 模式開 Chrome」
 
 ---
 
-## 🔐 權限設定
+## ❓ 出問題了怎麼辦？
 
-### settings.json 結構
+### 安裝過程中
 
-`~/.claude/settings.json` 控制 Claude Code 的權限：
+| 狀況 | 怎麼辦 |
+|------|--------|
+| Claude 說找不到某個指令 | 把 VS Code **整個關掉再重開**（不是只關終端機！） |
+| Mac 說「無法驗證開發者」 | 「系統設定」→「隱私與安全性」→ 往下滑找「仍要允許」 |
+| 安裝超久沒反應 | 第一次正常要等 2-3 分鐘。超過 5 分鐘就檢查網路。 |
 
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(npm install:*)",
-      "Bash(git *)",
-      "Read",
-      "Write",
-      "Edit",
-      "mcp__chrome-devtools__*",
-      "mcp__context7__*",
-      "mcp__supabase__*",
-      "mcp__gcloud__*",
-      "mcp__cloudflare__*",
-      "mcp__github__*",
-      "mcp__stitch__*"
-    ]
-  }
-}
-```
+### 安裝完之後
 
-### 權限模式
-
-| 模式 | 說明 |
-|------|------|
-| **Allow once** | 僅本次允許（下次還會再問） |
-| **Allow always** | 永久允許（自動寫入 settings.json） |
-| **互動模式（預設）** | 每次都詢問，最安全 |
-
-### 安全提醒
-
-- ❌ **永遠不要**把 API Key / Token 放在 git tracked 的檔案中
-- ❌ **永遠不要**允許 `Bash(rm -rf *)` 這類危險指令
-- ✅ 定期檢查 `~/.claude/settings.json` 中的 allow 列表
+| 狀況 | 怎麼辦 |
+|------|--------|
+| 某個外掛顯示 disconnected | 跟 Claude 說：「幫我檢查外掛設定是不是有問題」 |
+| 瀏覽器操控不能用 | 跟 Claude 說：「幫我用 debug 模式開 Chrome」 |
+| Claude 忘記你之前說的事 | 檢查資料夾裡有沒有 `CLAUDE.md`（注意要**全大寫**！） |
+| Claude 整個打不開 | 跟 Claude 說：「幫我重新安裝 claude code」 |
 
 ---
 
-## ❓ 常見問題 FAQ
+## 🚀 裝完之後可以幹嘛？
 
-### 環境類
+1. 在桌面建一個新資料夾，拖進 VS Code
+2. 跟 Claude 說你想做什麼（例如「我想做一個記帳 App」）
+3. 按 `Shift+TAB` 切到規劃模式，讓 Claude 先幫你規劃
+4. 覺得 OK 就切回普通模式讓它動手做
+5. 做出來的東西可以叫 Claude 用瀏覽器幫你測試
 
-| 問題 | 解法 |
-|------|------|
-| `npx: command not found` | Node.js 沒裝 / 裝完沒重啟 VS Code |
-| 裝完 Node 但 VS Code 還是找不到 | **完全關閉 VS Code 再重開**（關 terminal 不夠！） |
-| `EACCES: permission denied` | 用 fnm 裝 Node（不需 sudo）：`curl -fsSL https://fnm.vercel.app/install \| bash` |
-| macOS「無法驗證開發者」 | 系統設定 → 隱私與安全性 → 仍要允許 |
-| Node.js 版本太舊 | `fnm install --lts && fnm default lts-latest` |
-
-### MCP 類
-
-| 問題 | 解法 |
-|------|------|
-| MCP 顯示 disconnected | 檢查 mcp.json 格式：`cat ~/.claude/mcp.json \| python3 -m json.tool` |
-| MCP 一直 connecting | npx 首次下載較慢，等 2-3 分鐘 |
-| Chrome DevTools 連不上 | Chrome 要用 debug 模式啟動（見上方說明） |
-| Supabase OAuth 彈不出 | 允許瀏覽器彈出視窗 |
-| GitHub MCP 無法啟動 | 確認 Docker Desktop 已啟動 + PAT 已設定 |
-
-### Claude Code 類
-
-| 問題 | 解法 |
-|------|------|
-| `claude: command not found` | `npm install -g @anthropic-ai/claude-code` |
-| Skill 叫不出來 | `ls ~/.claude/skills/` 確認有裝到 |
-| Claude 不讀 CLAUDE.md | 檔名必須大寫 `CLAUDE.md`（不是 claude.md） |
-| 認證失敗 | 到 console.anthropic.com 確認 API Key / 訂閱狀態 |
-
----
-
-## 🚀 下一步
-
-環境就緒後，推薦的學習路徑：
-
-1. 在任意專案資料夾啟動 `claude`，開始你的第一個 AI 輔助開發
-2. 試試 `Shift+TAB` 切換到規劃模式，讓 Claude 先幫你設計架構
-3. 用 Chrome DevTools 讓 Claude 幫你測試網頁
-4. 在專案根目錄建立 `CLAUDE.md`，寫下專案規範
+歡迎來到新世界！🚀
