@@ -62,7 +62,9 @@ docker --version 2>$null; if (-not $?) { Write-Host "Docker 未安裝（GitHub M
 git --version
 ```
 
-如果 Docker 未安裝，告知使用者：「Docker 未安裝，GitHub MCP 將跳過。如果之後需要，可以到 https://docker.com 安裝 Docker Desktop。」
+如果 Docker 未安裝，告知使用者：「Docker 目前沒裝，所以 GitHub 程式碼管家功能先跳過了。之後如果需要，去 https://docker.com 下載 Docker Desktop 安裝就行，不急！」
+
+> **Claude 內部備忘**：不要在提示中出現 `brew install` 或任何終端機安裝指令，麻瓜看到會嚇到。只提供官網下載連結。
 
 如果 Git 未安裝：
 - **macOS**：`xcode-select --install`
@@ -347,10 +349,20 @@ Write-Host "=== ✅ 檢查完畢 ===" -ForegroundColor Cyan
 > - 🌐 6 個 MCP 伺服器（瀏覽器操控、資料庫、雲端、版控、影片…）
 > - 🛠️ 4 組頂級技能包（全自動工程 + 頂級設計 + 學習系統 + 全方位強化）
 > - 📜 專屬的 CLAUDE.md 大腦守則
+
+接著，**非常重要地**告訴使用者以下重啟步驟：
+
+> ⚠️ **最後一步：重啟讓所有設定生效！**
+>
+> 1. **關掉 VS Code，然後重新打開**（不是只關對話框，是整個 VS Code 關掉再開！）
+> 2. 重新打開後，點擊上方的**橘底白色放射狀圖案**，打開 Claude 對話框
+> 3. 在對話框裡輸入：**「我已經重啟了，請幫我確認所有工具都正常運作」**
+> 4. Claude 會幫你做一次全面檢查，確認所有 MCP 和技能都載入成功
+>
+> 部分 MCP（Supabase、Cloudflare、GCP）在**第一次使用時**會彈出瀏覽器要求登入授權。
+> 👉 你只要輸入帳號密碼，然後點「同意」就好，之後就不會再問了。
 >
 > **快速上手小秘訣：**
 > - 按 `Shift+TAB` 可以切換自動接受模式 / 規劃模式
-> - 輸入 `claude -c` 可以回到上次的對話
-> - 輸入 `claude -r` 可以看所有對話歷史
 >
 > 歡迎來到新世界！🚀 開始你的第一個 AI 輔助開發專案吧！
